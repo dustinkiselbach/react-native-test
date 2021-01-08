@@ -42,6 +42,7 @@ export const Digits: React.FC = () => {
       })}
 
       <TextInput
+        testID='digit-input'
         ref={input}
         caretHidden={true}
         keyboardType='numeric'

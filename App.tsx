@@ -29,7 +29,7 @@ export default function App () {
         </View>
         <Digits />
         <View style={styles.bottom}>
-          <Text style={styles.secondaryText}>
+          <Text style={[styles.secondaryText, { marginBottom: 2 }]}>
             Didn't receive your code? <Text style={styles.link}>Resend</Text>
           </Text>
           <Text style={[styles.secondaryText, { marginBottom: 30 }]}>
