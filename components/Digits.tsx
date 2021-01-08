@@ -70,7 +70,8 @@ export const Digits: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: 75
   },
   input: {
     position: 'absolute',

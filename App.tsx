@@ -47,8 +47,7 @@ export default function App () {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 44,
-    flex: 1,
-    justifyContent: 'space-between'
+    flex: 1
   },
   secondaryText: {
     color: lightGrey
@@ -57,6 +56,7 @@ const styles = StyleSheet.create({
     color: green
   },
   bottom: {
+    marginTop: 'auto',
     marginBottom: 30
   }
 })
