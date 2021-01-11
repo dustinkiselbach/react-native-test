@@ -9,30 +9,37 @@ import { Digits } from '../components/Digits'
 // }
 
 describe('<Digits />', () => {
-  test('entering a digit', () => {
-    const { getByText, getByTestId } = render(<Digits />)
+  describe('when editing digits', () => {
+    test('sets input digit', () => {
+      const { getByText, getByTestId } = render(<Digits />)
+      const input = getByTestId('digit-input')
+      fireEvent.changeText(input, '1')
+      const item = getByText('1')
+      expect(item).toBeDefined()
+    })
 
-    const input = getByTestId('digit-input')
-    fireEvent.changeText(input, '1')
-    const item = getByText('1')
-    expect(item).toBeDefined()
+    test('deletes input digit', () => {
+      const { getByTestId, queryByText } = render(<Digits />)
+      const input = getByTestId('digit-input')
+      fireEvent.changeText(input, '1')
+      fireEvent(input, 'onKeyPress', { nativeEvent: { key: 'Backspace' } })
+      expect(queryByText('1')).toBeNull()
+    })
   })
 
-  test('digits stop at 10 digits', () => {
-    const { getByText, getByTestId, queryByText } = render(<Digits />)
-    const input = getByTestId('digit-input')
-    fireEvent.changeText(input, 'abcdefghijk')
-    expect(getByText('j')).toBeDefined()
-    expect(queryByText('k')).toBeNull()
-  })
+  describe('when digits overflow', () => {
+    test('digits stop at 10 digits', () => {
+      const { queryByText, getByTestId } = render(<Digits />)
+      const input = getByTestId('digit-input')
+      fireEvent.changeText(input, 'abcdefghijk')
+      expect(queryByText('k')).toBeNull()
+    })
 
-  test('deleting digits', () => {
-    const { getByText, getByTestId, queryByText } = render(<Digits />)
-    const input = getByTestId('digit-input')
-    fireEvent.changeText(input, 'abcdefghijk')
-    expect(getByText('j')).toBeDefined()
-
-    fireEvent(input, 'onKeyPress', { nativeEvent: { key: 'Backspace' } })
-    expect(queryByText('j')).toBeNull()
+    test('delete removes last digit rendered', () => {
+      const { queryByText, getByTestId } = render(<Digits />)
+      const input = getByTestId('digit-input')
+      fireEvent(input, 'onKeyPress', { nativeEvent: { key: 'Backspace' } })
+      expect(queryByText('j')).toBeNull()
+    })
   })
 })
